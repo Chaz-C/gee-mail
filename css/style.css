@@ -5,10 +5,10 @@ body {
 .emailboxes {
 	border: solid black 1px;
 	border-radius: 5px;
-	margin: 5px;
 	font-family: Verdana;
 	padding: 10px;
 	margin: 15px;
+	background-color: whitesmoke;
 }
 
 h1 {
