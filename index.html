@@ -1,18 +1,51 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
+		<title>Gee-Mail Challenge</title>
     <script>
       window.onload = function(){
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
+
+		var inboxCounter = document.createElement('p');
+		inboxCounter.id = "inboxcounterstyle";
+		inboxCounter.innerHTML = window.geemails.length;
+		inbox.appendChild(inboxCounter);        
+
+
+
         
+        for ( var i = 0; i < window.geemails.length; i ++ ) {
+        	var loadedEmails = document.createElement('div');
+        	loadedEmails.className = "emailboxes"; 
+        	loadedEmails.innerHTML = "Sender: " + window.geemails[i].sender;
+        	loadedEmails.innerHTML += " Subject: " + window.geemails[i].subject;
+        	loadedEmails.innerHTML += " Date: " + window.geemails[i].date;
+        	main.appendChild(loadedEmails);
+        }
+
+
+
+
+
       };
     </script>
 	</head>
+
+	<header>
+		<h1>Gee-Mail</h1>
+	</header>
+
 	<body>
-		<div class="container" id="main">
-			Build Me!
+		<div id="inbox">
+			<h3>Inbox: </h3>
 		</div>
+
+		<div class="container" id="main">
+		</div>
+
+
 	</body>
 </html>

@@ -1,0 +1,30 @@
+.emailboxes {
+	border: solid black 1px;
+	border-radius: 5px;
+	margin: 5px;
+	font-family: Verdana;
+}
+
+h1 {
+	font-family: Impact;
+	color: green;
+	font-size: 60px;
+}
+
+h3 {
+	font-size: 25px;
+	font-family: Verdana;
+	display: inline-block;
+}
+
+#inboxcounterstyle {
+	background-color: red;
+	border-radius: 10px;
+	height: 25px;
+	width: 25px;
+	text-align: center;
+	color: #fff;
+	font-size: 20px;
+	display: inline-block
+}
+
