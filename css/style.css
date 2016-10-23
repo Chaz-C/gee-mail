@@ -2,14 +2,6 @@ body {
 	background-color: #A7DBDB;
 }
 
-.emailboxes {
-	border: solid black 1px;
-	border-radius: 5px;
-	font-family: Verdana;
-	padding: 10px;
-	margin: 15px;
-	background-color: whitesmoke;
-}
 
 h1 {
 	font-family: Impact;
@@ -37,3 +29,15 @@ h3 {
 	display: inline-block
 }
 
+.emailboxes {
+	border: solid black 1px;
+	border-radius: 5px;
+	font-family: Verdana;
+	padding: 10px;
+	margin: 15px;
+	background-color: whitesmoke;
+}
+
+.emailContent {
+	display: none;
+}

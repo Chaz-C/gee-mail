@@ -8,25 +8,82 @@
       window.onload = function(){
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
-
-		var inboxCounter = document.createElement('p');
-		inboxCounter.id = "inboxcounterstyle";
+		var inboxCounter = document.createElement('p');   // CREATES INBOX LABEL
 		inboxCounter.innerHTML = window.geemails.length;
-		inbox.appendChild(inboxCounter);        
+		inboxCounter.id = "inboxcounterstyle";
+		inbox.appendChild(inboxCounter);       
+
+
 
 
 
         
-        for ( var i = 0; i < window.geemails.length; i ++ ) {
+        for ( var i = 0; i < window.geemails.length; i ++ ) {   //LOAD INITIAL INBOX
         	var loadedEmails = document.createElement('div');
         	loadedEmails.className = "emailboxes"; 
         	loadedEmails.innerHTML = "Sender: " + window.geemails[i].sender;
         	loadedEmails.innerHTML += " Subject: " + window.geemails[i].subject;
         	loadedEmails.innerHTML += " Date: " + window.geemails[i].date;
         	main.appendChild(loadedEmails);
+
+
+            var emailBody = document.createElement('div');
+            emailBody.className = "emailContent";
+            emailBody.innerHTML = window.geemails[i].body;
+            loadedEmails.appendChild(emailBody);
+
+
         }
 
+            var clicky = document.getElementsByClassName('emailboxes');  //ADD EVENTS TO SHOW BODY
 
+            for ( var j = 0; j < clicky.length; j ++ ) {
+                clicky[j].addEventListener('click', showBody);
+                }
+
+        function showBody() {                                       //SHOW EMAIL BODY FUNTION
+        var clickMe = this.querySelectorAll('.emailContent')[0];
+            if ( clickMe.style.display === "none" ) {
+                clickMe.style.display = "block";
+            } else {
+                clickMe.style.display = "none";
+            }
+        }
+
+        // console.log(clickMe);
+
+        setInterval(function() {                          //CREATE NEW EMAILS
+
+            var createEmail = window.getNewMessage;
+            window.geemails.push(createEmail);
+
+            var newEmails = document.createElement('div');
+            newEmails.className = "emailboxes";
+            newEmails.innerHTML = "Sender: " + createEmail.sender;
+            newEmails.innerHTML += " Subject: " + createEmail.subject;
+            newEmails.innerHTML += " Date: " + createEmail.date;
+            newEmailHere.appendChild(newEmails);
+
+            var newEmailsBody = document.createElement('div');
+            newEmailsBody.className = "emailContent";
+            newEmailsBody.innerHTML = createEmail.body;
+            newEmails.appendChild(newEmailsBody);
+
+            // newClicky = document.getElementsByClassName('emailboxes');
+            // newClicky.addEventLister('click', showBody);
+
+            // for ( var m = 0; m < clicky.length; j ++ ) {
+            //     clicky[m].addEventListener('click', showBody);
+            //     }
+
+
+
+        inboxCounter.innerHTML = window.geemails.length; // UPDATES INBOX COUNTER
+
+            // console.log(createEmail.sender);
+        	// console.log(window.geemails.length);
+        	// console.log("hi");
+        }, 6000);
 
 
 
@@ -44,6 +101,10 @@
 		</div>
 
 		<div class="container" id="main">
+		</div>
+
+		<div id="newEmailHere">
+			
 		</div>
 
 
