@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+        <link href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans+Condensed:300|Raleway" rel="stylesheet">
+
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
 		<title>Gee-Mail Challenge</title>
@@ -8,38 +10,54 @@
       window.onload = function(){
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
+
 		var inboxCounter = document.createElement('p');   // CREATES INBOX LABEL
 		inboxCounter.innerHTML = window.geemails.length;
 		inboxCounter.id = "inboxcounterstyle";
 		inbox.appendChild(inboxCounter);       
 
+            //GENERATE INITIAL EMAILS
+
+        for ( var i = 0; i < window.geemails.length; i ++ ) {   
+        var loadedEmails = document.createElement('div');
+        loadedEmails.className = "emailBoxes"; 
+    	loadedEmails.innerHTML = "<b>Sender:</b> " + window.geemails[i].sender;
+    	loadedEmails.innerHTML += "\xa0\xa0\xa0 |\xa0\xa0\xa0 <b>Subject:</b> " + window.geemails[i].subject;
+        loadedEmails.innerHTML += "\xa0\xa0\xa0 |\xa0\xa0\xa0 <b>Date:</b> " + window.geemails[i].date;
+    	main.appendChild(loadedEmails);
 
 
-
-
-        
-        for ( var i = 0; i < window.geemails.length; i ++ ) {   //LOAD INITIAL INBOX
-        	var loadedEmails = document.createElement('div');
-        	loadedEmails.className = "emailboxes"; 
-        	loadedEmails.innerHTML = "Sender: " + window.geemails[i].sender;
-        	loadedEmails.innerHTML += " Subject: " + window.geemails[i].subject;
-        	loadedEmails.innerHTML += " Date: " + window.geemails[i].date;
-        	main.appendChild(loadedEmails);
-
-
-            var emailBody = document.createElement('div');
-            emailBody.className = "emailContent";
-            emailBody.innerHTML = window.geemails[i].body;
-            loadedEmails.appendChild(emailBody);
-
-
+        var emailBody = document.createElement('div');
+        emailBody.className = "emailContent";
+        emailBody.innerHTML = window.geemails[i].body;
+        loadedEmails.appendChild(emailBody);
         }
 
-            var clicky = document.getElementsByClassName('emailboxes');  //ADD EVENTS TO SHOW BODY
+        // TRYING EVENT DELEGATION
 
-            for ( var j = 0; j < clicky.length; j ++ ) {
-                clicky[j].addEventListener('click', showBody);
-                }
+        /* function showBody2(e) {
+            var target = e.target;
+            // var showMe = target.querySelectorAll('.emailContent') [0];
+            var showMe = target.querySelectorAll('.emailContent') [0];
+            if ( showMe.style.display === "none" ) {
+                showMe.style.display = "block";
+            } else {
+                showMe.style.display = "none";
+            }
+
+        } 
+*/
+
+        // main.addEventListener('click', showBody2);   // ADDS EVENT TO MAIN CONTAINER
+
+        // END OF EVENT DELEGATION
+
+
+        var clicky = document.getElementsByClassName('emailBoxes');  //ADD EVENTS TO SHOW BODY
+
+        for ( var j = 0; j < clicky.length; j ++ ) {
+            clicky[j].addEventListener('click', showBody);
+        }
 
         function showBody() {                                       //SHOW EMAIL BODY FUNTION
         var clickMe = this.querySelectorAll('.emailContent')[0];
@@ -54,59 +72,55 @@
 
         setInterval(function() {                          //CREATE NEW EMAILS
 
-            var createEmail = window.getNewMessage;
+            var createEmail = getNewMessage();
             window.geemails.push(createEmail);
-
+            // console.log(createEmail);
             var newEmails = document.createElement('div');
-            newEmails.className = "emailboxes";
-            newEmails.innerHTML = "Sender: " + createEmail.sender;
-            newEmails.innerHTML += " Subject: " + createEmail.subject;
-            newEmails.innerHTML += " Date: " + createEmail.date;
-            newEmailHere.appendChild(newEmails);
+            newEmails.className = "emailBoxes";
+            newEmails.innerHTML = "<b>Sender:</b> " + createEmail.sender;
+            newEmails.innerHTML += "\xa0\xa0\xa0 |\xa0\xa0\xa0 <b>Subject:</b> " + createEmail.subject;
+            newEmails.innerHTML += "\xa0\xa0\xa0 |\xa0\xa0\xa0 <b>Date:</b> " + createEmail.date;
+            main.appendChild(newEmails);
 
             var newEmailsBody = document.createElement('div');
             newEmailsBody.className = "emailContent";
             newEmailsBody.innerHTML = createEmail.body;
             newEmails.appendChild(newEmailsBody);
 
-            // newClicky = document.getElementsByClassName('emailboxes');
-            // newClicky.addEventLister('click', showBody);
+            // console.log(clicky);
 
-            // for ( var m = 0; m < clicky.length; j ++ ) {
-            //     clicky[m].addEventListener('click', showBody);
-            //     }
-
+            for ( var m = 0; m < clicky.length; m ++ ) {    //ADD EVENT TO NEW EMAILS
+            clicky[m].addEventListener('click', showBody);
+            }
 
 
         inboxCounter.innerHTML = window.geemails.length; // UPDATES INBOX COUNTER
 
             // console.log(createEmail.sender);
-        	// console.log(window.geemails.length);
-        	// console.log("hi");
+            // console.log(window.geemails.length);
+            // console.log("hi");
         }, 6000);
-
 
 
       };
     </script>
 	</head>
 
-	<header>
-		<h1>Gee-Mail</h1>
-	</header>
-
 	<body>
-		<div id="inbox">
-			<h3>Inbox: </h3>
-		</div>
+        <!-- <img src="assets/fall.jpeg" alt=""> -->
+        <div id="header">
+
+            <h1>Gee-Mail</h1>
+
+            <div id="inbox">
+                <h3>Inbox: </h3>
+            </div>
+
+        </div>
+
 
 		<div class="container" id="main">
 		</div>
-
-		<div id="newEmailHere">
-			
-		</div>
-
 
 	</body>
 </html>
