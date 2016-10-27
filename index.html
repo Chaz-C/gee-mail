@@ -11,12 +11,14 @@
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
 
-		var inboxCounter = document.createElement('p');   // CREATES INBOX LABEL
+        // CREATES INBOX LABEL
+
+		var inboxCounter = document.createElement('p');   
 		inboxCounter.innerHTML = window.geemails.length;
 		inboxCounter.className = "inboxcounterstyle";
 		inbox.appendChild(inboxCounter);       
 
-            //GENERATE INITIAL EMAILS
+        //GENERATE INITIAL EMAILS
 
         for ( var i = 0; i < window.geemails.length; i ++ ) {   
         var loadedEmails = document.createElement('div');
@@ -29,6 +31,7 @@
 
         var emailBody = document.createElement('div');
         emailBody.className = "emailContent";
+        emailBody.setAttribute("style", "display: none;");
         emailBody.innerHTML = window.geemails[i].body;
         loadedEmails.appendChild(emailBody);
         }
@@ -57,6 +60,13 @@
         //SHOW ME SPAM!
 
         spam.addEventListener('click', spamShow);
+        spam.addEventListener('click', stopInterval);
+        spamPic.setAttribute("style", "display: none;");
+
+        function stopInterval() {
+            console.log("stopping interval");
+            clearInterval(intervalStart);
+        }
 
         function spamShow(){
             if ( spamPic.style.display === "none" ) {
@@ -68,18 +78,16 @@
                 spamPic.style.display = "none";
             }
         }
-        /*
-        if ( spamPic.style.display === "none" ) {
-                spamPic.style.display = "block";
-                for ( var w = 0; w < clicky.length; w ++ ) {
-                    clicky[w].style.display = "none";
-                }
-            }
-        }*/
 
         //CLICK INBOX
 
         inbox.addEventListener('click', showEmail);
+        inbox.addEventListener('click', startInterval);
+
+        function startInterval() {
+            console.log("starting interval");
+            intervalStart = setInterval(genEmails, 6000);
+        }
 
         function showEmail() {
             if ( spamPic.style.display === "block" ) {
@@ -90,42 +98,50 @@
             }
         }
 
+        var intervalStart = setInterval(genEmails, 6000);
+
                 // console.log(clicky);
 
         //CREATE NEW EMAILS AND ADD EVENTS TO THEM
 
-        setInterval(function() {                         
+        function genEmails() {                         
 
-            var createEmail = getNewMessage();
-            window.geemails.push(createEmail);
-            // console.log(createEmail);
-            var newEmails = document.createElement('div');
-            newEmails.className = "emailBoxes";
-            newEmails.innerHTML = "<b>Sender:</b> " + createEmail.sender;
-            newEmails.innerHTML += "\xa0\xa0\xa0 |\xa0\xa0\xa0 <b>Subject:</b> " + createEmail.subject;
-            newEmails.innerHTML += "\xa0\xa0\xa0 |\xa0\xa0\xa0 <b>Date:</b> " + createEmail.date;
-            main.appendChild(newEmails);
+        var createEmail = getNewMessage();
+        window.geemails.push(createEmail);
+        // console.log(createEmail);
+        var newEmails = document.createElement('div');
+        newEmails.className = "emailBoxes";
+        newEmails.innerHTML = "<b>Sender:</b> " + createEmail.sender;
+        newEmails.innerHTML += "\xa0\xa0\xa0 |\xa0\xa0\xa0 <b>Subject:</b> " + createEmail.subject;
+        newEmails.innerHTML += "\xa0\xa0\xa0 |\xa0\xa0\xa0 <b>Date:</b> " + createEmail.date;
+        main.appendChild(newEmails);
 
-            var newEmailsBody = document.createElement('div');
-            newEmailsBody.className = "emailContent";
-            newEmailsBody.innerHTML = createEmail.body;
-            newEmails.appendChild(newEmailsBody);
+        var newEmailsBody = document.createElement('div');
+        newEmailsBody.className = "emailContent";
+        newEmailsBody.setAttribute("style", "display: none;");
+        newEmailsBody.innerHTML = createEmail.body;
+        newEmails.appendChild(newEmailsBody);
 
-            // console.log(clicky);
+        // console.log(clicky);
 
-            //ADD EVENTS TO NEW EMAIL
+        //ADD EVENTS TO NEW EMAIL
 
-            for ( var m = 0; m < clicky.length; m ++ ) {    
+        for ( var m = 0; m < clicky.length; m ++ ) {    
             clicky[m].addEventListener('click', showBody);
-            }
+        }
+
+        // UPDATES INBOX COUNTER
+
+        inboxCounter.innerHTML = window.geemails.length;
 
 
-        inboxCounter.innerHTML = window.geemails.length; // UPDATES INBOX COUNTER
 
-            // console.log(createEmail.sender);
-            // console.log(window.geemails.length);
-            // console.log("hi");
-        }, 6000);
+        }
+
+        //END OF NEW EMAILS GENERATOR
+
+
+
 
 
       };
