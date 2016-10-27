@@ -14,6 +14,7 @@ body {
 	/*background-color: orange;*/
 	position: fixed;
 	border-bottom: 1px solid black;
+	text-align: center;
 }
 
 
@@ -37,13 +38,17 @@ h3 {
 	text-shadow: 2px 2px black;
 }
 
+#spam {
+	display: inline-block;
+}
+
 #inbox {
 	/*margin-left: auto;
 	margin-right: auto;*/
-	text-align: center;
+	display: inline-block;
 }
 
-#inboxcounterstyle {
+.inboxcounterstyle {
 	background-color: white;
 	border-radius: 10px;
 	height: 25px;
@@ -53,6 +58,7 @@ h3 {
 	font-size: 20px;
 	display: inline-block
 }
+
 
 #main {
 	margin-top: 190px;
@@ -71,6 +77,10 @@ h3 {
 	margin-left: auto;
 	margin-right: auto;
 	transition: width .5s, background-color .5s;
+
+	box-shadow: 5px 5px 10px gray;
+
+	display: block;
 }
 
 .emailBoxes:hover {
@@ -93,3 +103,36 @@ h3 {
 	border-bottom-right-radius: 5px;
 	color: black;
 }
+
+#spamPic {
+	display: none;
+	margin: auto;
+}
+
+#footer {
+   position: fixed;
+   left: 0px;
+   bottom: 0px;
+   height: 40px;
+   width: 100%;
+   background: #DDDDDD;
+   border-top: 1px #B1B1B1 solid;
+   text-align: center;
+   color: #B1B1B1;
+}
+
+#footer p {
+	margin-top: 10px;
+	font-family: 'Open Sans Condensed', Verdana;
+}
+
+.footerLinks {
+	color: gray;
+	text-decoration: none;
+}
+
+.footerLinks:hover {
+	font-weight: bold;
+	text-decoration: underline;
+}
+

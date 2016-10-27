@@ -13,7 +13,7 @@
 
 		var inboxCounter = document.createElement('p');   // CREATES INBOX LABEL
 		inboxCounter.innerHTML = window.geemails.length;
-		inboxCounter.id = "inboxcounterstyle";
+		inboxCounter.className = "inboxcounterstyle";
 		inbox.appendChild(inboxCounter);       
 
             //GENERATE INITIAL EMAILS
@@ -33,33 +33,17 @@
         loadedEmails.appendChild(emailBody);
         }
 
-        // TRYING EVENT DELEGATION
+        //ADD EVENTS
 
-        /* function showBody2(e) {
-            var target = e.target;
-            // var showMe = target.querySelectorAll('.emailContent') [0];
-            var showMe = target.querySelectorAll('.emailContent') [0];
-            if ( showMe.style.display === "none" ) {
-                showMe.style.display = "block";
-            } else {
-                showMe.style.display = "none";
-            }
-
-        } 
-*/
-
-        // main.addEventListener('click', showBody2);   // ADDS EVENT TO MAIN CONTAINER
-
-        // END OF EVENT DELEGATION
-
-
-        var clicky = document.getElementsByClassName('emailBoxes');  //ADD EVENTS TO SHOW BODY
+        var clicky = document.getElementsByClassName('emailBoxes');  
 
         for ( var j = 0; j < clicky.length; j ++ ) {
             clicky[j].addEventListener('click', showBody);
         }
 
-        function showBody() {                                       //SHOW EMAIL BODY FUNTION
+        //SHOW EMAIL BODY FUNCTION
+
+        function showBody() {                                    
         var clickMe = this.querySelectorAll('.emailContent')[0];
             if ( clickMe.style.display === "none" ) {
                 clickMe.style.display = "block";
@@ -70,7 +54,47 @@
 
         // console.log(clickMe);
 
-        setInterval(function() {                          //CREATE NEW EMAILS
+        //SHOW ME SPAM!
+
+        spam.addEventListener('click', spamShow);
+
+        function spamShow(){
+            if ( spamPic.style.display === "none" ) {
+                spamPic.style.display = "block";
+                for ( var p = 0; p < clicky.length; p ++ ) {
+                    clicky[p].style.display = "none";
+                } 
+            } else {
+                spamPic.style.display = "none";
+            }
+        }
+        /*
+        if ( spamPic.style.display === "none" ) {
+                spamPic.style.display = "block";
+                for ( var w = 0; w < clicky.length; w ++ ) {
+                    clicky[w].style.display = "none";
+                }
+            }
+        }*/
+
+        //CLICK INBOX
+
+        inbox.addEventListener('click', showEmail);
+
+        function showEmail() {
+            if ( spamPic.style.display === "block" ) {
+                spamPic.style.display = "none";
+                for ( var w = 0; w < clicky.length; w ++ ) {
+                    clicky[w].style.display = "block";
+                }
+            }
+        }
+
+                // console.log(clicky);
+
+        //CREATE NEW EMAILS AND ADD EVENTS TO THEM
+
+        setInterval(function() {                         
 
             var createEmail = getNewMessage();
             window.geemails.push(createEmail);
@@ -89,7 +113,9 @@
 
             // console.log(clicky);
 
-            for ( var m = 0; m < clicky.length; m ++ ) {    //ADD EVENT TO NEW EMAILS
+            //ADD EVENTS TO NEW EMAIL
+
+            for ( var m = 0; m < clicky.length; m ++ ) {    
             clicky[m].addEventListener('click', showBody);
             }
 
@@ -103,11 +129,11 @@
 
 
       };
+
     </script>
 	</head>
 
 	<body>
-        <!-- <img src="assets/fall.jpeg" alt=""> -->
         <div id="header">
 
             <h1>Gee-Mail</h1>
@@ -116,11 +142,23 @@
                 <h3>Inbox: </h3>
             </div>
 
+            <div id="spam">
+                <h3>Spam: </h3>
+                <p class="inboxcounterstyle">1</p>
+            </div>
+
         </div>
 
 
 		<div class="container" id="main">
+
 		</div>
+
+            <img id="spamPic" src="assets/spam.png" alt="">
+
+        <div id="footer">
+            <p><a class="footerLinks" href="#">Terms</a> - <a class="footerLinks" href="#">Privacy</a>
+        </div>
 
 	</body>
 </html>
